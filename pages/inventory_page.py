@@ -10,15 +10,14 @@ class InventoryPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.menu_button = page.get_by_role(
-            "button",
-            name="Open Menu"
-        )
+        self.menu_button = page.get_by_role("button",
+            name="Open Menu")
 
-        self.logout_link = page.get_by_role(
-            "link",
-            name="Logout"
-        )
+        self.logout_link = page.get_by_role("link",
+            name="Logout")
+
+        self.title = page.locator("xpath=//span[@data-test='title']")
+
 
     def logout(self):
         self.menu_button.click()

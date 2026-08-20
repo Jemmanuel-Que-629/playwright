@@ -9,11 +9,13 @@ def test_inventory_page_loads(logged_in_user):
 
 
 def test_inventory_title(logged_in_user):
+    inventory_page = logged_in_user
 
     expect(
-        logged_in_user.page.locator(".title")
+        inventory_page.title
     ).to_have_text("Products")
 
+    # inventory_page.title is the locator. will define later, just pseudocode
 
 def test_logout(logged_in_user):
 

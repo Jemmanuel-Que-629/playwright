@@ -1,0 +1,11 @@
+# Browser automation
+playwright==1.62.0
+
+# Pytest + Playwright integration (provides the page/context/browser fixtures)
+pytest-playwright==0.8.0
+
+# Test runner
+pytest>=8.0
+
+# HTML test reports (generates reports/report.html)
+pytest-html>=4.0

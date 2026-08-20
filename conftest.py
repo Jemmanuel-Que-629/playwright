@@ -10,13 +10,8 @@ from test_data.login_data import (
 
 
 @pytest.fixture
-def login_page(page):
-    return LoginPage(page)
-
-
-@pytest.fixture
-def logged_in_user(login_page):
-
+def logged_in_user():
+    login_page = LoginPage(page)
     login_page.open()
 
     login_page.login(

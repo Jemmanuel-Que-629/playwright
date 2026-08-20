@@ -20,13 +20,12 @@ def test_valid_login(login_page):
     expect(login_page.page).to_have_url(
         f"{login_page.URL}/inventory.html"
     )
-
-
 @pytest.mark.parametrize(
     "username,password",
     INVALID_LOGIN_SCENARIOS,
 )
 def test_invalid_login(login_page, username, password):
+    password = 'secret_sauce'
 
     login_page.open()
 
@@ -58,3 +57,4 @@ def test_menu_burgers_clickable(logged_in_user, burger_item, correct_burger_item
     # 2. click burger icon
     # 3. click burger_item
     # 4. validate that user is redirected to correct_burger_item_link
+    expect(login_page.error_message).to_be_visible()
