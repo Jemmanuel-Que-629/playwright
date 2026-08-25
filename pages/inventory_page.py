@@ -29,3 +29,16 @@ class InventoryPage(BasePage):
                 name="Remove"
             )
         ).to_be_visible()
+
+    def remove_product_from_cart(self, product_name: str):
+        
+        product = self.page.locator(
+            ".inventory_item"
+        ).filter(
+            has_text=product_name
+        )
+
+        product.get_by_role(
+            "button",
+            name="Remove"
+        ).click()
