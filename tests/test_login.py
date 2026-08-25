@@ -18,7 +18,7 @@ def test_valid_login(login_page):
     )
 
     expect(login_page.page).to_have_url(
-        f"{login_page.URL}/inventory.html"
+        f"{login_page.URL}inventory.html"
     )
 
 

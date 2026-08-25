@@ -1,25 +1,31 @@
-from playwright.sync_api import Page
-
+from playwright.sync_api import expect
 from pages.base_page import BasePage
 
 
 class InventoryPage(BasePage):
 
-    URL = "https://www.saucedemo.com/inventory.html"
+    def add_product_to_cart(self, product_name: str):
+        product = self.page.locator(
+            ".inventory_item"
+        ).filter(
+            has_text=product_name
+        )
 
-    def __init__(self, page: Page):
-        super().__init__(page)
-
-        self.menu_button = page.get_by_role(
+        product.get_by_role(
             "button",
-            name="Open Menu"
+            name="Add to cart"
+        ).click()
+
+    def verify_product_added(self, product_name: str):
+        product = self.page.locator(
+            ".inventory_item"
+        ).filter(
+            has_text=product_name
         )
 
-        self.logout_link = page.get_by_role(
-            "link",
-            name="Logout"
-        )
-
-    def logout(self):
-        self.menu_button.click()
-        self.logout_link.click()
+        expect(
+            product.get_by_role(
+                "button",
+                name="Remove"
+            )
+        ).to_be_visible()
