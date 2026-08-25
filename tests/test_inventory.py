@@ -1,6 +1,5 @@
 import pytest
 
-
 @pytest.mark.parametrize(
     "product_name",
     [
@@ -13,6 +12,8 @@ import pytest
     ],
 )
 def test_add_product_to_cart(logged_in_user, product_name):
+
+    inventory_page = logged_in_user
 
     logged_in_user.add_product_to_cart(product_name)
 
