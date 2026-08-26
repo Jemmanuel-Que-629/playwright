@@ -1,6 +1,7 @@
 from playwright.sync_api import expect
 from pages.base_page import BasePage
 from pages.product_page import ProductPage
+from pages.cart_page import CartPage
 
 
 class InventoryPage(BasePage):
@@ -73,3 +74,11 @@ class InventoryPage(BasePage):
             ).click()
 
             return ProductPage(self.page)
+
+    def open_cart(self):
+
+            self.page.locator(
+                ".shopping_cart_link",
+            ).click()
+
+            return CartPage(self.page)
