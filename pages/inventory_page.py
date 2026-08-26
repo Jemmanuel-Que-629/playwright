@@ -1,5 +1,6 @@
 from playwright.sync_api import expect
 from pages.base_page import BasePage
+from pages.product_page import ProductPage
 
 
 class InventoryPage(BasePage):
@@ -31,7 +32,7 @@ class InventoryPage(BasePage):
         ).to_be_visible()
 
     def remove_product_from_cart(self, product_name: str):
-        
+
         product = self.page.locator(
             ".inventory_item"
         ).filter(
@@ -42,3 +43,33 @@ class InventoryPage(BasePage):
             "button",
             name="Remove"
         ).click()
+
+    def verify_product_removed(self, product_name: str):
+
+        product = self.page.locator(
+            ".inventory_item"
+        ).filter(
+            has_text=product_name
+        )
+
+        expect(
+            product.get_by_role(
+                "button",
+                name="Add to cart"
+            )
+        ).to_be_visible()
+
+    def open_product_page(self, product_name: str):
+
+            product = self.page.locator(
+                ".inventory_item"
+            ).filter(
+                has_text=product_name
+            )
+
+            product.get_by_text(
+                product_name,
+                exact=True
+            ).click()
+
+            return ProductPage(self.page)

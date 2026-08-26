@@ -15,7 +15,7 @@ def login_page(page):
 
 
 @pytest.fixture
-def logged_in_user(login_page):
+def inventory_page(login_page):
 
     login_page.open()
 
