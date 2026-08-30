@@ -1,24 +1,34 @@
+import pytest
 from playwright.sync_api import expect
 
+@pytest.mark.parametrize(
+    "product_name",
+    [
+        "Sauce Labs Backpack",
+        "Sauce Labs Bike Light",
+        "Sauce Labs Bolt T-Shirt",
+        "Sauce Labs Fleece Jacket",
+        "Sauce Labs Onesie",
+        "Test.allTheThings() T-Shirt (Red)",
+    ],
+)
+def test_add_product_to_cart(logged_in_user, product_name):
 
-def test_inventory_page_loads(logged_in_user):
+    inventory_page = logged_in_user
 
-    expect(logged_in_user.page).to_have_url(
-        "https://www.saucedemo.com/inventory.html"
-    )
+    inventory_page.add_product_to_cart(product_name)
 
-
-def test_inventory_title(logged_in_user):
-
-    expect(
-        logged_in_user.page.locator(".title")
-    ).to_have_text("Products")
+    inventory_page.verify_product_added(product_name)
 
 
-def test_logout(logged_in_user):
+def test_remove_product_from_cart(logged_in_user):
 
-    logged_in_user.logout()
+    inventory_page = logged_in_user
 
-    expect(logged_in_user.page).to_have_url(
-        "https://www.saucedemo.com/"
-    )
+    product_name = "Sauce Labs Backpack"
+
+    inventory_page.add_product_to_cart(product_name)
+
+    inventory_page.remove_product_from_cart(product_name)
+
+    inventory_page.verify_product_removed(product_name)
