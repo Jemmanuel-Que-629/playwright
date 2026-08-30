@@ -5,11 +5,3 @@ __pycache__/
 playwright-report/
 test-results/
 **/__pycache/
-
-pages/
-├── __pycache__/
-
-tests/
-├── __pycache__/
-
-__pycache__/
