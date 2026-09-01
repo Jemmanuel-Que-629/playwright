@@ -62,17 +62,16 @@ class InventoryPage(BasePage):
 
     def open_product_page(self, product_name: str):
 
-            product = self.page.locator(
+            product_div = self.page.locator(
                 ".inventory_item"
             ).filter(
                 has_text=product_name
             )
-
-            product.get_by_text(
-                product_name,
-                exact=True
-            ).click()
-
+            
+            product_page_name_locator = product_div.locator(".inventory_item_name")
+            
+            product_page_name_locator.click()
+            
             return ProductPage(self.page)
 
     def open_cart(self):
@@ -82,3 +81,19 @@ class InventoryPage(BasePage):
             ).click()
 
             return CartPage(self.page)
+        
+    def get_inventory_price(self, product_name: str):
+        
+        product_div = self.page.locator(".inventory_item").filter(has_text=product_name)
+        
+        product_price_locator = product_div.locator(".inventory_item_price")
+        
+        product_price = product_price_locator.text_content()
+        
+        return product_price 
+    
+    def get_inventory_minibag_count(self):
+        
+        mini_bag_count_locator = self.page.locator(".shopping_cart_badge")
+        expect(mini_bag_count_locator).to_be_visible()
+        return mini_bag_count_locator.text_content()
